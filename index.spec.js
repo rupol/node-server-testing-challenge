@@ -6,7 +6,7 @@ beforeEach(async () => {
   await db.seed.run();
 });
 
-test("welcome route", async () => {
+test("GET / - welcome route", async () => {
   const res = await supertest(server).get("/");
 
   // does it return the expected status code?
@@ -17,4 +17,26 @@ test("welcome route", async () => {
 
   // does it return the expected data?
   expect(res.body.message).toMatch(/enjoy my chickens api/i);
+});
+
+test("POST /chickens - create new chicken route", async () => {
+  const res = await supertest(server)
+    .post("/chickens")
+    .send({
+      name: "janelle",
+      breed: "salmon faverolle"
+    });
+
+  // does it return the expected status code?
+  expect(res.status).toBe(201);
+
+  // does it return the expected data format?
+  expect(res.type).toBe("application/json");
+
+  // does it return the expected data?
+  expect(res.body).toEqual({
+    id: 6,
+    name: "janelle",
+    breed: "salmon faverolle"
+  });
 });

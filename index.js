@@ -2,6 +2,8 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 
+const chickensModel = require("./chickens/chickens-model");
+
 const server = express();
 const port = process.env.PORT || 4000;
 
@@ -13,6 +15,15 @@ server.get("/", (req, res, next) => {
   res.json({
     message: "Enjoy my chickens API"
   });
+});
+
+server.post("/chickens", async (req, res, next) => {
+  try {
+    const chicken = await chickensModel.create(req.body);
+    res.status(201).json(chicken);
+  } catch (err) {
+    next(err);
+  }
 });
 
 server.use((req, res) => {
