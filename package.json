@@ -4,8 +4,8 @@
   "description": "Node Server Testing Challenge",
   "main": "server.js",
   "scripts": {
-    "test": "jest --verbose --watch",
-    "server": "nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --watch",
+    "server": "cross-env NODE_ENV=development nodemon index.js",
     "start": "node index.js"
   },
   "jest": {

@@ -11,7 +11,7 @@ server.use(cors());
 
 server.get("/", (req, res, next) => {
   res.json({
-    message: "Welcome to our API"
+    message: "Enjoy my chickens API"
   });
 });
 
