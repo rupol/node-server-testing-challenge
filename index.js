@@ -17,10 +17,37 @@ server.get("/", (req, res, next) => {
   });
 });
 
+server.get("/chickens", async (req, res, next) => {
+  try {
+    const chickens = await chickensModel.get();
+    res.status(200).json(chickens);
+  } catch (err) {
+    next(err);
+  }
+});
+
+server.get("/chickens/:id", async (req, res, next) => {
+  try {
+    const chicken = await chickensModel.getById(req.params.id);
+    res.status(200).json(chicken);
+  } catch (err) {
+    next(err);
+  }
+});
+
 server.post("/chickens", async (req, res, next) => {
   try {
     const chicken = await chickensModel.create(req.body);
     res.status(201).json(chicken);
+  } catch (err) {
+    next(err);
+  }
+});
+
+server.put("/chickens/:id", async (req, res, next) => {
+  try {
+    const chicken = await chickensModel.update(req.params.id, req.body);
+    res.status(200).json(chicken);
   } catch (err) {
     next(err);
   }
