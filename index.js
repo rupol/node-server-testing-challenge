@@ -26,6 +26,15 @@ server.post("/chickens", async (req, res, next) => {
   }
 });
 
+server.delete("/chickens/:id", async (req, res, next) => {
+  try {
+    await chickensModel.del(req.params.id);
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
 server.use((req, res) => {
   res.status(404).json({
     message: "Route was not found"

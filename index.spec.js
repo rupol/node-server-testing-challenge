@@ -40,3 +40,13 @@ test("POST /chickens - create new chicken route", async () => {
     breed: "salmon faverolle"
   });
 });
+
+test("DELETE /chickens - delete chicken route", async () => {
+  const res = await supertest(server).delete("/chickens/1");
+
+  // does it return the expected status code?
+  expect(res.status).toBe(204);
+
+  // does it return the expected data format?
+  expect(res.type).toBe("");
+});
